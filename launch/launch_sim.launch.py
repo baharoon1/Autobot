@@ -116,6 +116,25 @@ def generate_launch_description():
         output='screen'
     )
 
+    image_bridge = Node(
+        package="ros_gz_image",
+        executable='image_bridge',
+        arguments=[
+            '/camera/image_raw'
+        ],
+        
+
+    )
+
+    camera_bridge = Node(
+        package= 'ros_gz_bridge',
+        executable='parameter_bridge',
+        arguments= [
+            '/camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo'
+        ],
+        
+    )
+
     return LaunchDescription([
         rsp,
         gazebo,
@@ -126,4 +145,7 @@ def generate_launch_description():
         cmd_vel_bridge,
         lidar_bridge,
         static_lidar_tf,
+        image_bridge,
+        camera_bridge
+
     ])
